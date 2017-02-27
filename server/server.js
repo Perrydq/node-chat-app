@@ -30,24 +30,10 @@ io.on('connection', (socket) => {
         console.log('User Disconnected');
     });
 
-    socket.on('createMessage', (newMessage) => {
+    socket.on('createMessage', (newMessage, callback) => {
         console.log('New Message', newMessage);
         io.emit('newMessage', generateMessage(newMessage.from, newMessage.text));
-        
-        // io.emit('newMessage', {
-        //     from: newMessage.from,
-        //     text: newMessage.text,
-        //     createdAt: new Date().getTime()
-        // })
-
-        //sends messages to all but the originating socket
-        // socket.broadcast.emit('newMessage', { 
-        //     from: newMessage.from,
-        //     text: newMessage.text,
-        //     createdAt: new Date().getTime()
-        // })
-
-
+        callback('This is from the server');
     })
 });
 
